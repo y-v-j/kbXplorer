@@ -1,0 +1,94 @@
+/* Dual-pane layout: 60% chat console, 40% citation dock. */
+
+Screen {
+    layout: vertical;
+    background: $surface;
+}
+
+#main-split {
+    height: 1fr;
+}
+
+/* ---------------------------------------------------------------- left */
+#chat-pane {
+    width: 60%;
+    border: round $primary;
+    border-title-color: $accent;
+    border-title-style: bold;
+    padding: 0 1;
+}
+
+#chat-log {
+    height: 1fr;
+    background: $surface;
+    scrollbar-size-vertical: 1;
+}
+
+#input-row {
+    height: auto;
+    dock: bottom;
+    padding: 0 1 1 1;
+}
+
+#question-input {
+    border: tall $accent;
+}
+
+#question-input:focus {
+    border: tall $success;
+}
+
+/* --------------------------------------------------------------- right */
+#dock-pane {
+    width: 40%;
+    border: round $secondary;
+    border-title-color: $accent;
+    border-title-style: bold;
+}
+
+#citation-list {
+    height: 1fr;
+    background: $surface;
+    scrollbar-size-vertical: 1;
+}
+
+#citation-list > ListItem {
+    padding: 0 1;
+    background: $surface;
+}
+
+#citation-list > ListItem.--highlight {
+    background: $accent 30%;
+}
+
+#detail-scroll {
+    height: 45%;
+    border-top: solid $secondary;
+    padding: 0 1;
+    background: $surface;
+}
+
+#detail-body {
+    height: auto;
+}
+
+/* -------------------------------------------------------------- status */
+#status-bar {
+    height: 1;
+    dock: bottom;
+    background: $panel;
+    color: $text-muted;
+    padding: 0 1;
+}
+
+.verified {
+    color: $success;
+}
+
+.unverified {
+    color: $warning;
+}
+
+.figure-hit {
+    color: $accent;
+}

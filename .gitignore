@@ -1,0 +1,17 @@
+# Generated data — rebuildable from pdf_files/ via `python main.py ingest`
+chroma_db/
+state/
+logs/
+assets/images/
+bases/
+
+# Local machine state and overrides
+config.json
+knowledge_bases.json
+
+# The corpus itself is usually large and not source
+pdf_files/
+
+__pycache__/
+*.py[cod]
+.venv/

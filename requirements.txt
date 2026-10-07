@@ -1,0 +1,37 @@
+# kbXplorer — Python 3.12, CPU only.
+#
+# Install into a Python 3.12 virtual environment (venv or conda):
+#   pip install -r requirements.txt
+#
+# Versions are lower bounds pinned to the majors this project was built and
+# tested against; see DEVELOPMENT_NOTES.md for the exact tested set.
+
+# --- PDF parsing -----------------------------------------------------------
+pymupdf>=1.24,<2          # text spans, layout geometry, figure rendering
+pdfplumber>=0.11,<0.13    # table extraction to Markdown
+
+# --- Vector store and embeddings ------------------------------------------
+chromadb>=0.5,<2          # persistent vector DB (bundles ONNX MiniLM)
+onnxruntime>=1.18         # CPU inference for the default embedding backend
+tokenizers>=0.19          # tokenisation for the ONNX embedder
+
+# --- Local LLM -------------------------------------------------------------
+ollama>=0.3               # client for the local Ollama daemon
+
+# --- Interface -------------------------------------------------------------
+textual>=0.80             # dual-pane TUI framework
+rich>=13                  # text rendering (also a Textual dependency)
+
+# --- Folder monitoring -----------------------------------------------------
+watchdog>=4               # filesystem events for automatic re-indexing
+
+# --- Imaging ---------------------------------------------------------------
+pillow>=10                # figure post-processing and size checks
+
+# --- Optional --------------------------------------------------------------
+# The PyTorch embedding backend. Only needed for
+# KB_EMBEDDING_BACKEND=sentence-transformers; it costs ~700 MB of RAM versus
+# ~150 MB for the default ONNX path, so it is deliberately not installed by
+# default on a 16 GB machine. Install the CPU-only build:
+#   pip install sentence-transformers --index-url https://download.pytorch.org/whl/cpu
+# sentence-transformers>=3.0
