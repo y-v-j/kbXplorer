@@ -527,7 +527,6 @@ kbXplorer/
 ├── ingest.py                ingestion pipeline, re-index selectors
 ├── requirements.txt
 ├── README.md
-├── DEVELOPMENT_NOTES.md     design decisions and implementation notes
 ├── instructions.md          the original project specification
 ├── engine/
 │   ├── config.py            settings, env overrides, logging
@@ -562,9 +561,6 @@ Created at runtime and git-ignored:
 ├── knowledge_bases.json         knowledge-base registry
 └── config.json                  optional settings overrides
 ```
-
-For design rationale, known limitations, and testing notes, see
-[DEVELOPMENT_NOTES.md](DEVELOPMENT_NOTES.md).
 
 ---
 

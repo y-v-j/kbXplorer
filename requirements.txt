@@ -4,7 +4,7 @@
 #   pip install -r requirements.txt
 #
 # Versions are lower bounds pinned to the majors this project was built and
-# tested against; see DEVELOPMENT_NOTES.md for the exact tested set.
+# tested against.
 
 # --- PDF parsing -----------------------------------------------------------
 pymupdf>=1.24,<2          # text spans, layout geometry, figure rendering

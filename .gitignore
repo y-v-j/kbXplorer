@@ -5,7 +5,8 @@ logs/
 assets/images/
 bases/
 
-# Local machine state and overrides
+# Local machine state, overrides, and private notes
+DEVELOPMENT_NOTES.md
 config.json
 knowledge_bases.json
 
