@@ -1,0 +1,15 @@
+# GitHub Pages: README.md rendered with the Midnight Ink theme (_layouts/default.html).
+lang: en
+author: Yogesh
+tagline: "Local knowledge base over research papers"
+nav:
+  - title: "Quick start"
+    url: "#quick-start"
+  - title: "Commands"
+    url: "#commands"
+  - title: "How it works"
+    url: "#how-it-works"
+license_name: "MIT"
+copyright: "© 2026 Yogesh"
+plugins:
+  - jekyll-seo-tag

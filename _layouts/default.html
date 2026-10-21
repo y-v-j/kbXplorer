@@ -1,0 +1,65 @@
+{%- comment -%}
+  Midnight Ink: dark GitHub Pages layout. README.md becomes the page.
+  Everything repo-specific comes from _config.yml (see _config.example.yml).
+{%- endcomment -%}
+{%- assign title = site.title | default: site.github.repository_name -%}
+{%- assign repo_url = site.repo_url | default: site.github.repository_url -%}
+{%- assign logo = site.logo | default: '/assets/favicon.svg' -%}
+<!DOCTYPE html>
+<html lang="{{ site.lang | default: 'en' }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="{{ site.colors.bg | default: '#191926' }}">
+  {% seo %}
+  <link rel="icon" href="{{ site.favicon | default: '/assets/favicon.svg' | relative_url }}" type="image/svg+xml">
+  <link rel="preload" href="{{ '/assets/fonts/FantasqueSansMono-Regular.woff2' | relative_url }}" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="{{ '/assets/css/site.css' | relative_url }}?v={{ site.github.build_revision }}">
+  {%- if site.colors %}
+  <style>:root { {% for c in site.colors %}--{{ c[0] }}: {{ c[1] }}; {% endfor %}}</style>
+  {%- endif %}
+</head>
+<body data-repo="{{ repo_url }}" data-branch="{{ site.github.source.branch | default: 'main' }}" data-base="{{ site.baseurl }}">
+  <a class="skip" href="#content">Skip to content</a>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="{{ '/' | relative_url }}" aria-label="{{ title }} home">
+        <img class="brand-icon" src="{{ logo | relative_url }}" alt="" width="26" height="26">
+        <span class="brand-name">{{ title }}</span>
+      </a>
+      {%- if site.tagline %}
+      <span class="brand-sub">{{ site.tagline }}</span>
+      {%- endif %}
+      <nav class="topnav" aria-label="Main">
+        {%- for item in site.nav %}
+        <a href="{{ item.url }}">{{ item.title }}</a>
+        {%- endfor %}
+        {%- if repo_url %}
+        <a class="chip" href="{{ repo_url }}">GitHub</a>
+        {%- endif %}
+      </nav>
+    </div>
+  </header>
+
+  <div class="layout">
+    <aside class="sidebar" aria-label="Sections"><nav id="toc"></nav></aside>
+    <main id="content" class="content">
+{{ content }}
+    </main>
+  </div>
+
+  <footer class="footer">
+    <span>{{ title }}{% if site.license_name %} &middot; {{ site.license_name }} licence{% endif %}{% if site.copyright %} &middot; {{ site.copyright }}{% endif %}</span>
+    {%- if site.footer_note %}
+    <span class="sep" aria-hidden="true">&bull;</span>
+    <span>{{ site.footer_note }}</span>
+    {%- endif %}
+    {%- if repo_url %}
+    <span class="sep" aria-hidden="true">&bull;</span>
+    <a href="{{ repo_url }}">source on GitHub</a>
+    {%- endif %}
+  </footer>
+  <script src="{{ '/assets/js/site.js' | relative_url }}?v={{ site.github.build_revision }}" defer></script>
+</body>
+</html>
