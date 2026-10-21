@@ -117,8 +117,9 @@ a:hover { text-decoration: underline; text-underline-offset: 3px; }
 .hero > p:first-of-type { color: var(--label); max-width: 46em; }
 p.badges { display: flex; flex-wrap: wrap; gap: 6px; margin: 16px 0 22px; }
 p.badges img { height: 20px; border-radius: 3px; display: block; box-shadow: 0 0 0 1px var(--edge); }
+/* screenshots keep their real size (never stretched, which blurs small ones), capped at the column */
 .hero img.shot-hero {
-  display: block; width: 100%; height: auto; border-radius: 12px; border: 1px solid var(--edge);
+  display: block; max-width: 100%; height: auto; margin: 0 auto; border-radius: 12px; border: 1px solid var(--edge);
   box-shadow: 0 24px 70px rgba(0, 0, 0, .5), 0 0 0 1px rgba(125, 211, 252, .05);
 }
 sub { color: var(--label); font-size: .82rem; line-height: 1.5; vertical-align: baseline; display: inline-block; margin-top: 4px; }
@@ -208,15 +209,13 @@ div.highlighter-rouge:hover .copy, .copy:focus-visible { opacity: 1; }
 /* ---------- screenshots ---------- */
 .content img { max-width: 100%; height: auto; }
 p.shots { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; align-items: start; }
-p.shots img, .content p > img.shot {
-  display: block; width: 100%; border-radius: 8px; border: 1px solid var(--edge); cursor: zoom-in;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+.content img.shot {
+  max-width: 100%; height: auto; vertical-align: top; border-radius: 8px; border: 1px solid var(--edge);
+  cursor: zoom-in; box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
 }
+.content p > img.shot:not([width]) { display: block; }   /* a README width="..." keeps its inline layout */
 p.shots img { margin: 0; }
-.content td img.shot {
-  display: block; margin: 6px 0; border-radius: 8px; border: 1px solid var(--edge); cursor: zoom-in;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
-}
+.content td img.shot { display: block; margin: 6px 0; }
 .content table.gallery tbody tr:hover td { background: none; }
 .content table.gallery td { width: 50%; color: var(--label); }
 .content table.gallery td:first-child { min-width: 0; }

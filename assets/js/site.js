@@ -28,11 +28,18 @@
       p.className = "badges";
     }
   });
+  // the first screenshot is the hero, unless it shares its paragraph with others (a side-by-side row)
   var first = hero.querySelector("img:not([src*='shields.io'])");
-  if (first) first.classList.add("shot-hero");
+  if (first) {
+    var row = first.parentNode.querySelectorAll("img:not([src*='shields.io'])");
+    if (row.length > 1) row.forEach(function (i) { i.classList.add("shot"); });
+    else first.classList.add("shot-hero");
+  }
   main.querySelectorAll(".card p").forEach(function (p) {
     var imgs = p.querySelectorAll("img");
-    if (imgs.length > 1) p.classList.add("shots");
+    // a grid only when the README did not size the images itself (e.g. <img width="32%">)
+    var sized = Array.prototype.some.call(imgs, function (i) { return i.hasAttribute("width"); });
+    if (imgs.length > 1 && !sized) p.classList.add("shots");
     imgs.forEach(function (i) { i.classList.add("shot"); });
   });
 
