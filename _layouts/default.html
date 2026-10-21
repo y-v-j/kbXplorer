@@ -33,7 +33,8 @@
       {%- endif %}
       <nav class="topnav" aria-label="Main">
         {%- for item in site.nav %}
-        <a href="{{ item.url }}">{{ item.title }}</a>
+        {%- assign first = item.url | slice: 0 %}
+        <a href="{% if first == '#' %}{{ '/' | relative_url }}{% endif %}{{ item.url }}">{{ item.title }}</a>
         {%- endfor %}
         {%- if repo_url %}
         <a class="chip" href="{{ repo_url }}">GitHub</a>

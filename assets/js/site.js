@@ -115,18 +115,32 @@
     block.appendChild(b);
   });
 
-  // 7. Links to Markdown files that are not part of the site open on GitHub instead
-  //    (pages Jekyll built were already rewritten to .html by jekyll-relative-links)
+  // 7. Links the site cannot serve open on GitHub instead:
+  //    - Markdown files that are not part of the site (pages Jekyll built were already
+  //      rewritten to .html by jekyll-relative-links)
+  //    - folders without a README and files left out of the site (checked with HEAD)
   var repo = document.body.getAttribute("data-repo");
   var branch = document.body.getAttribute("data-branch") || "main";
   var base = document.body.getAttribute("data-base") || "";
+  var baseRe = new RegExp("^" + base.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "/");
   if (repo) {
+    var heads = {};
     main.querySelectorAll("a[href]").forEach(function (a) {
       var href = a.getAttribute("href");
-      if (/^[a-z]+:|^#|^\/\//i.test(href) || !/\.(md|markdown)(#|$)/i.test(href)) return;
+      if (/^[a-z][a-z0-9+.-]*:|^#|^\/\//i.test(href)) return;
       var url = new URL(href, location.href);
-      var path = url.pathname.replace(new RegExp("^" + base.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + "/"), "");
-      a.href = repo + "/blob/" + branch + "/" + path + url.hash;
+      if (url.origin !== location.origin) return;
+      var path = decodeURIComponent(url.pathname.replace(baseRe, ""));
+      if (/\.(md|markdown)$/i.test(path)) {
+        a.href = repo + "/blob/" + branch + "/" + path + url.hash;
+        return;
+      }
+      if (!window.fetch || url.pathname === location.pathname) return;
+      heads[url.pathname] = heads[url.pathname] || fetch(url.pathname, { method: "HEAD" })
+        .then(function (r) { return r.ok; }, function () { return true; });
+      heads[url.pathname].then(function (ok) {
+        if (!ok) a.href = repo + "/tree/" + branch + "/" + path.replace(/\/$/, "") + url.hash;
+      });
     });
   }
 
